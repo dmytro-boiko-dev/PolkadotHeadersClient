@@ -1,0 +1,25 @@
+{
+  "name": "PolkadotHeadersClient",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "ts-node ./src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "@polkadot/api": "^13.1.1",
+    "@polkadot/types": "^13.1.1",
+    "crypto-js": "^4.2.0",
+    "express": "^4.21.0"
+  },
+  "devDependencies": {
+    "@types/crypto-js": "^4.2.2",
+    "@types/express": "^4.17.21",
+    "@types/node": "^22.5.5",
+    "ts-node": "^10.9.2",
+    "typescript": "^5.6.2"
+  }
+}
