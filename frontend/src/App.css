@@ -1,0 +1,27 @@
+.App {
+    font-family: Arial, sans-serif;
+    padding: 20px;
+}
+
+.header-item {
+    border: 1px solid #ccc;
+    padding: 10px;
+    margin-bottom: 10px;
+}
+
+.header-item strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+.header-item span {
+    font-size: 1.2em;
+}
+
+.header-controls {
+    margin-bottom: 20px;
+}
+
+.header-controls button {
+    margin-right: 10px;
+}

@@ -2,11 +2,13 @@ import express from 'express';
 import {ApiPromise, WsProvider} from '@polkadot/api';
 import headerRoutes from './api/headerRoutes';
 import {MerkleTree, merkleTreeStore} from './services/storeInstance';  // Import the shared instance
+import cors from 'cors';
 
 const app = express();
 const port = 3000;
 app.use(express.json());
-app.use('/header', headerRoutes);
+app.use(cors());
+app.use('/headers', headerRoutes);
 
 async function listenToHeadersAndStore(api: ApiPromise, batchSize: number) {
     let headerBatch: any[] = [];
