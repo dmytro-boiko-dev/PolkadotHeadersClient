@@ -11,10 +11,12 @@
   "dependencies": {
     "@polkadot/api": "^13.1.1",
     "@polkadot/types": "^13.1.1",
+    "cors": "^2.8.5",
     "crypto-js": "^4.2.0",
     "express": "^4.21.0"
   },
   "devDependencies": {
+    "@types/cors": "^2.8.17",
     "@types/crypto-js": "^4.2.2",
     "@types/express": "^4.17.21",
     "@types/node": "^22.5.5",

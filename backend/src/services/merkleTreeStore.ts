@@ -52,9 +52,6 @@ export class MerkleTree {
         return this.root ? this.root.hash : null;
     }
 
-
-    //
-
     generateInclusionProof(leafHash: string): MerkleProofStep[] | null {
         const leafIndex = this.leaves.findIndex(leaf => leaf.hash === leafHash);
         if (leafIndex === -1) {
@@ -75,8 +72,8 @@ export class MerkleTree {
                 proof.push({siblingHash, position});
 
                 // Debugging output
-                console.log(`At index ${index}, sibling index ${siblingIndex}, position: ${position}`);
-                console.log(`Adding sibling hash: ${siblingHash}`);
+                // console.log(`At index ${index}, sibling index ${siblingIndex}, position: ${position}`);
+                // console.log(`Adding sibling hash: ${siblingHash}`);
             }
 
             // Move up the tree
@@ -86,7 +83,6 @@ export class MerkleTree {
 
         return proof;
     }
-
 
     // Helper function to build the next level up in the Merkle tree
     private buildParentLevel(nodes: MerkleNode[]): MerkleNode[] {
@@ -101,36 +97,6 @@ export class MerkleTree {
     }
 }
 
-// export function verifyMerkleProof(leafHash: string, proof: string[], rootHash: string): boolean {
-//     let computedHash = leafHash;
-//     console.log("--------------------------------------------------------------------------------------------");
-//     console.log('Starting verification for leaf hash:', leafHash);
-//     console.log('Proof:', proof);
-//     console.log('Expected root hash:', rootHash);
-//
-//     proof.forEach((siblingHash, index) => {
-//         console.log(`Step ${index + 1}:`);
-//         console.log(`Current computed hash: ${computedHash}`);
-//         console.log(`Sibling hash: ${siblingHash}`);
-//
-//         // Concatenate hashes in the correct left-right order
-//         if (index % 2 === 0) { // Left node comes first
-//             computedHash = hashData(computedHash + siblingHash);
-//             console.log(`Hashing (left-right): ${computedHash} + ${siblingHash}`);
-//         } else { // Right node comes first
-//             computedHash = hashData(siblingHash + computedHash);
-//             console.log(`Hashing (right-left): ${siblingHash} + ${computedHash}`);
-//         }
-//
-//         console.log(`New computed hash: ${computedHash}`);
-//     });
-//
-//     console.log(`Final computed hash: ${computedHash}`);
-//     console.log(`Does the computed hash match the root hash? ${computedHash === rootHash}`);
-//     console.log("--------------------------------------------------------------------------------------------");
-//     return computedHash === rootHash;
-// }
-
 export function verifyMerkleProof(
     leafHash: string,
     proof: MerkleProofStep[],
@@ -139,7 +105,7 @@ export function verifyMerkleProof(
     let computedHash = leafHash;
 
     proof.forEach(({siblingHash, position}, index) => {
-        // Concatenate hashes based on the position
+        // concatenate hashes based on the position
         if (position === 'left') {
             computedHash = hashData(siblingHash + computedHash);
         } else {
@@ -147,15 +113,14 @@ export function verifyMerkleProof(
         }
 
         // Debugging output
-        console.log(`Step ${index + 1}:`);
-        console.log(`Position: ${position}`);
-        console.log(`Sibling hash: ${siblingHash}`);
-        console.log(`New computed hash: ${computedHash}`);
+        // console.log(`Step ${index + 1}:`);
+        // console.log(`Position: ${position}`);
+        // console.log(`Sibling hash: ${siblingHash}`);
+        // console.log(`New computed hash: ${computedHash}`);
     });
 
     return computedHash === rootHash;
 }
-
 
 // in-memory storage
 export class MerkleTreeStore {
@@ -193,5 +158,11 @@ export class MerkleTreeStore {
 
     getAllTrees(): MerkleTree[] {
         return this.trees;
+    }
+
+    getRecentHeaders(limit: number = 8): { hash: string; header: any }[] {
+        const entries = Array.from(this.headerMapByHash.entries());
+        const recentEntries = entries.slice(-limit).reverse(); // Get the last `limit` headers
+        return recentEntries.map(([hash, header]) => ({hash, header}));
     }
 }

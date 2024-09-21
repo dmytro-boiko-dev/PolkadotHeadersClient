@@ -7,9 +7,10 @@
     "frontend"
   ],
   "scripts": {
-    "start": "concurrently \"npm run start -w backend\" \"npm run start -w frontend\""
+    "start": "concurrently \"npm run start -w backend\" \"npm run start -w frontend\"",
+    "build": "npm run build -w frontend"
   },
   "devDependencies": {
-    "concurrently": "^9.0.1"
+    "concurrently": "^7.0.0"
   }
 }
